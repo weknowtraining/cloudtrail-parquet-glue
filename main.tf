@@ -18,10 +18,10 @@ resource "aws_glue_job" "cloudtrail_to_parquet" {
   }
 
   default_arguments = {
-    "--TempDir"              = "${var.temp_s3_bucket}"
-    "--glue_database"        = "${var.glue_database}"
+    "--TempDir"              = var.temp_s3_bucket
+    "--glue_database"        = var.glue_database
     "--raw_cloudtrail_table" = "raw_${replace(replace(var.cloudtrail_s3_bucket, "s3://", ""), "-", "_")}"
-    "--results_bucket"       = "${var.parquet_s3_bucket}"
+    "--results_bucket"       = var.parquet_s3_bucket
     "--job-language"         = "python"
   }
 }
