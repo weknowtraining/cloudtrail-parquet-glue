@@ -64,7 +64,7 @@ resource "aws_glue_crawler" "cloudtrail_raw_crawler" {
   table_prefix  = "raw_"
   s3_target {
     path       = var.cloudtrail_s3_bucket
-    exclusions = ["**-Digest**", "**Config**"]
+    exclusions = ["**-Digest**", "**-Insight**", "**Config**"]
   }
 
   configuration = jsonencode(
