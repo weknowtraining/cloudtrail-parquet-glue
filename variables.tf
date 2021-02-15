@@ -37,3 +37,9 @@ variable "glue_database" {
   description = "Glue database to use for CloudTrail crawler"
   default     = "cloudtrail"
 }
+
+variable "schedule" {
+  type        = string
+  description = "The schedule to run workflow on"
+  default     = "cron(10 12 * * ? *)"
+}

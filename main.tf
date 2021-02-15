@@ -89,7 +89,7 @@ resource "aws_glue_crawler" "cloudtrail_raw_crawler" {
 
 resource "aws_glue_trigger" "start_cloudtrail_raw_to_parquet" {
   name          = "StartCloudTrailRawToParquet"
-  schedule      = "cron(10 12 * * ? *)"
+  schedule      = var.schedule
   type          = "SCHEDULED"
   workflow_name = aws_glue_workflow.cloudtrail_parquet_glue.name
 
