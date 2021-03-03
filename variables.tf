@@ -43,3 +43,8 @@ variable "schedule" {
   description = "The schedule to run workflow on"
   default     = "cron(10 12 * * ? *)"
 }
+
+variable "job_bookmark_option" {
+  description = "The bookmark option for the Glue job (see https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)"
+  default     = "job-bookmark-enable"
+}

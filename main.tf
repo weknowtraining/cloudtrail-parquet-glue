@@ -13,6 +13,7 @@ resource "aws_glue_job" "cloudtrail_to_parquet" {
   name         = "CloudTrailToParquet"
   role_arn     = aws_iam_role.cloudtrail_parquet_glue.arn
   glue_version = "1.0"
+
   command {
     script_location = "${var.etl_script_s3_bucket}/glue_etl.py"
   }
@@ -23,6 +24,7 @@ resource "aws_glue_job" "cloudtrail_to_parquet" {
     "--raw_cloudtrail_table" = "raw_${replace(replace(var.cloudtrail_s3_bucket, "s3://", ""), "-", "_")}"
     "--results_bucket"       = var.parquet_s3_bucket
     "--job-language"         = "python"
+    "--job-bookmark-option"  = var.job_bookmark_option
   }
 }
 
