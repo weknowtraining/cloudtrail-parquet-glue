@@ -25,6 +25,7 @@ resource "aws_glue_job" "cloudtrail_to_parquet" {
     "--results_bucket"       = var.parquet_s3_bucket
     "--job-language"         = "python"
     "--job-bookmark-option"  = var.job_bookmark_option
+    "--enable-metrics"       = ""
   }
 }
 
