@@ -1,14 +1,12 @@
 data "aws_iam_policy_document" "cloudtrail_parquet_glue" {
-  version = "2012-10-17"
-
   statement {
-    actions = [
-      "sts:AssumeRole"
-    ]
+    actions = ["sts:AssumeRole"]
+
     principals {
       type        = "Service"
       identifiers = ["glue.amazonaws.com"]
     }
+
     effect = "Allow"
   }
 }
@@ -24,17 +22,18 @@ resource "aws_iam_role_policy_attachment" "glue_service_role" {
 }
 
 data "aws_iam_policy_document" "read_cloudtrail_s3" {
-  version = "2012-10-17"
   statement {
     actions = [
       "s3:GetObject",
       "s3:GetBucketLocation",
       "s3:ListBucket"
     ]
+
     resources = [
       "arn:aws:s3:::${replace(var.cloudtrail_s3_bucket, "s3://", "")}/*",
       "arn:aws:s3:::${replace(var.cloudtrail_s3_bucket, "s3://", "")}",
     ]
+
     effect = "Allow"
   }
 }
@@ -51,17 +50,18 @@ resource "aws_iam_role_policy_attachment" "read_cloudtrail_s3" {
 }
 
 data "aws_iam_policy_document" "read_script_s3" {
-  version = "2012-10-17"
   statement {
     actions = [
       "s3:GetObject",
       "s3:GetBucketLocation",
       "s3:ListBucket"
     ]
+
     resources = [
       "arn:aws:s3:::${replace(var.etl_script_s3_bucket, "s3://", "")}/*",
       "arn:aws:s3:::${replace(var.etl_script_s3_bucket, "s3://", "")}",
     ]
+
     effect = "Allow"
   }
 }
@@ -78,7 +78,6 @@ resource "aws_iam_role_policy_attachment" "read_script_s3" {
 }
 
 data "aws_iam_policy_document" "read_write_parquet_s3" {
-  version = "2012-10-17"
   statement {
     actions = [
       "s3:DeleteObject",
@@ -87,12 +86,14 @@ data "aws_iam_policy_document" "read_write_parquet_s3" {
       "s3:ListBucket",
       "s3:PutObject"
     ]
+
     resources = [
-     "arn:aws:s3:::${replace(var.parquet_s3_bucket, "s3://", "")}/*",
-     "arn:aws:s3:::${replace(var.parquet_s3_bucket, "s3://", "")}",
-     "arn:aws:s3:::${replace(var.temp_s3_bucket, "s3://", "")}/*",
-     "arn:aws:s3:::${replace(var.temp_s3_bucket, "s3://", "")}",
+      "arn:aws:s3:::${replace(var.parquet_s3_bucket, "s3://", "")}/*",
+      "arn:aws:s3:::${replace(var.parquet_s3_bucket, "s3://", "")}",
+      "arn:aws:s3:::${replace(var.temp_s3_bucket, "s3://", "")}/*",
+      "arn:aws:s3:::${replace(var.temp_s3_bucket, "s3://", "")}",
     ]
+
     effect = "Allow"
   }
 }

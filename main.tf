@@ -61,6 +61,7 @@ resource "aws_glue_crawler" "cloudtrail_raw_crawler" {
   name          = "CloudTrailRawCrawler"
   role          = aws_iam_role.cloudtrail_parquet_glue.arn
   table_prefix  = "raw_"
+
   s3_target {
     path       = var.cloudtrail_s3_bucket
     exclusions = ["**-Digest**", "**-Insight**", "**Config**"]
