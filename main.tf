@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.region
-}
-
 resource "aws_s3_bucket_object" "etl_job_script" {
   bucket = replace(var.etl_script_s3_bucket, "s3://", "")
   key    = "glue_etl.py"
@@ -35,24 +31,24 @@ resource "aws_glue_crawler" "cloudtrail_parquet_crawler" {
   name          = "CloudTrailParquetCrawler"
   role          = aws_iam_role.cloudtrail_parquet_glue.arn
   table_prefix  = "cloudtrail_"
+
   s3_target {
     exclusions = []
     path       = "${var.parquet_s3_bucket}/parquet/"
   }
 
-  configuration = jsonencode(
-    {
-      CrawlerOutput = {
-        Partitions = {
-          AddOrUpdateBehavior = "InheritFromTable"
-        }
-        Tables = {
-          AddOrUpdateBehavior = "MergeNewColumns"
-        }
+  configuration = jsonencode({
+    CrawlerOutput = {
+      Partitions = {
+        AddOrUpdateBehavior = "InheritFromTable"
       }
-      Version = 1
+      Tables = {
+        AddOrUpdateBehavior = "MergeNewColumns"
+      }
     }
-  )
+    Version = 1
+  })
+
   schema_change_policy {
     delete_behavior = "DEPRECATE_IN_DATABASE"
     update_behavior = "LOG"
@@ -70,20 +66,19 @@ resource "aws_glue_crawler" "cloudtrail_raw_crawler" {
     exclusions = ["**-Digest**", "**-Insight**", "**Config**"]
   }
 
-  configuration = jsonencode(
-    {
-      Version = "1.0",
-      Grouping = {
-        TableGroupingPolicy = "CombineCompatibleSchemas"
-      },
-      CrawlerOutput = {
-        Partitions = {
-          AddOrUpdateBehavior = "InheritFromTable"
-        }
+  configuration = jsonencode({
+    Version = "1.0",
+    Grouping = {
+      TableGroupingPolicy = "CombineCompatibleSchemas"
+    },
+    CrawlerOutput = {
+      Partitions = {
+        AddOrUpdateBehavior = "InheritFromTable"
       }
-      Version = 1
     }
-  )
+    Version = 1
+  })
+
   schema_change_policy {
     delete_behavior = "LOG"
     update_behavior = "LOG"
