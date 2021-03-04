@@ -48,11 +48,11 @@ applymapping1 = ApplyMapping.apply(
         ("eventcategory", "string", "eventcategory", "string"),
         ("serviceeventdetails", "struct", "serviceeventdetails", "struct"),
         ("partition_0", "string", "organization", "string"),
-        ("partition_2", "string", "account", "string"),
-        ("partition_4", "string", "region", "string"),
-        ("partition_5", "string", "year", "string"),
-        ("partition_6", "string", "month", "string"),
-        ("partition_7", "string", "day", "string")
+        ("partition_1", "string", "account", "string"),
+        ("partition_2", "string", "region", "string"),
+        ("partition_3", "string", "year", "string"),
+        ("partition_4", "string", "month", "string"),
+        ("partition_5", "string", "day", "string")
     ],
     transformation_ctx="applymapping1"
 )

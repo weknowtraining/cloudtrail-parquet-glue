@@ -34,3 +34,8 @@ variable "job_bookmark_option" {
   description = "The bookmark option for the Glue job (see https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)"
   default     = "job-bookmark-enable"
 }
+
+variable "glue_version" {
+  default     = "2.0"
+  description = "Version for the job"
+}

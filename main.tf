@@ -8,7 +8,7 @@ resource "aws_s3_bucket_object" "etl_job_script" {
 resource "aws_glue_job" "cloudtrail_to_parquet" {
   name         = "CloudTrailToParquet"
   role_arn     = aws_iam_role.cloudtrail_parquet_glue.arn
-  glue_version = "1.0"
+  glue_version = var.glue_version
 
   command {
     script_location = "${var.etl_script_s3_bucket}/glue_etl.py"
